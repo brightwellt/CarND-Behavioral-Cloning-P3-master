@@ -161,6 +161,7 @@ Etc ....
 
 After the collection process, I had 18,996 number of data points. I then preprocessed this data by grayscaling the data. 
 ![GrayScaled Image][image2]
+
 This meant altering the supplied drive.py to grayscale the input data from the simulator so that it would match the model's inputs. I did look at using a Keras ImageDataGenerator to build the grayscale operation into the model itself, and will investigate further outside the scope of this writeup.
 Grayscaling the data significantly improved the model performance; reducing the error further and ensuring that it could reliably steer a car around track one. It also reduced the effect of altering my left / right correction factor, thus implying that it increased robustness. 
 The video, "run1.mp4" illustrates the saved model.h5 driving around track one..
