@@ -137,7 +137,7 @@ To capture good driving behavior, I first recorded two laps on track one using c
 
 ![Center driving][image12]
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover itself when it started to veer off the track in Autonomous Mode. These images show what a recovery looks like starting from ... :
+I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover itself when it started to veer off the track in Autonomous Mode. These images show what a recovery looks like starting from a position on the side of the track:
 
 ![On side of track][image3]
 ![Turning back in][image4]
