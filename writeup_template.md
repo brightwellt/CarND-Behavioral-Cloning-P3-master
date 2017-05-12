@@ -29,7 +29,7 @@ The goals / steps of this project are the following:
 [image9]: ./examples/Center.jpg "Center Image"
 [image10]: ./examples/Right.jpg "Right Image"
 [image11]: ./examples/Losses.PNG "Losses"
-[image12]: ./examples/CenterLaneDriving.png "Center Lane Driving"
+[image12]: ./examples/CenterLaneDriving.jpg "Center Lane Driving"
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -168,6 +168,7 @@ The video, "run1.mp4" illustrates the saved model.h5 driving around track one..
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 9 as evidenced by plotting the mean squared error losses during training and validation. Beyond 9 epochs the training loss flattened out. 
+
 ![Losses][image11]
 
 I used an adam optimizer so that manually training the learning rate wasn't necessary.
