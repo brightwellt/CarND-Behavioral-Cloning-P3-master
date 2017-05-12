@@ -28,7 +28,8 @@ The goals / steps of this project are the following:
 [image8]: ./examples/Left.jpg "Left Image"
 [image9]: ./examples/Center.jpg "Center Image"
 [image10]: ./examples/Right.jpg "Right Image"
-[image11]: ./examples/Losses.png "Losses"
+[image11]: ./examples/Losses.PNG "Losses"
+[image12]: ./examples/CenterLaneDriving.png "Center Lane Driving"
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -134,7 +135,7 @@ Here is a visualization of the architecture without the dropout / cropping layer
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
-![Center driving][image2]
+![Center driving][image12]
 
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover itself when it started to veer off the track in Autonomous Mode. These images show what a recovery looks like starting from ... :
 
