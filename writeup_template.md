@@ -46,6 +46,9 @@ My project includes the following files:
 * writeup_report.md or writeup_report.pdf summarizing the results
 * run1.mp4 - a video of a complete autonomous lap on track 1 
 
+It can be found here
+[Link to GitHub](https://github.com/brightwellt/CarND-Behavioral-Cloning-P3-master)
+
 ####2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
 ```sh
@@ -64,23 +67,23 @@ The model code was developed in a jupyter notebook running on an AWS instance. T
 My model is based upon an architecture published by Nvidia here
 https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/
 and referenced in the course notes.
-It consists of a convolution neural network with 3x3 / 5x5 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
+It consists of a convolution neural network with 3x3 / 5x5 filter sizes and depths between 32 and 128 (model.py lines 58-73) 
 
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). The normalized images are cropped to remove the sky. 
+The model includes RELU layers to introduce nonlinearity (code line 62 onwards) and the data is normalized in the model using a Keras lambda layer (code line 59). The normalized images are cropped to remove the sky. 
 
 ####2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
+The model contains dropout layers in order to reduce overfitting (model.py lines 61, 65, 68). 
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 ####3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 78).
 
 ####4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road, and driving in both directions around the track.
+Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road, and driving in both directions around the track. The mouse was used for steering.
 
 For details about how I created the training data, see the next section. 
 
@@ -88,7 +91,7 @@ For details about how I created the training data, see the next section.
 
 ####1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to start a very simple 1 layer architecture, progress to the NVidia architecture, and from there focus on getting a good, properly pre-processed dataset.
+The overall strategy for deriving a model architecture was to start with a very simple 1 layer architecture, progress to the NVidia architecture, and from there focus on getting a good, properly pre-processed dataset.
 
 I thought the NVidia example model would be a good starting point. It is appropriate because it is specifically designed for producing steering commands for a self-driving car.
 
