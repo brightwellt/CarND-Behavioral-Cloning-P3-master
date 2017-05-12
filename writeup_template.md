@@ -28,6 +28,7 @@ The goals / steps of this project are the following:
 [image8]: ./examples/Left.jpg "Left Image"
 [image9]: ./examples/Center.jpg "Center Image"
 [image10]: ./examples/Right.jpg "Right Image"
+[image11]: ./examples/Losses.png "Losses"
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -155,10 +156,14 @@ To augment the data set, I also flipped images and angles thinking that this wou
 Etc ....
 
 After the collection process, I had 18,996 number of data points. I then preprocessed this data by grayscaling the data. 
-[image2]: ./examples/GrayScaling.png "Grayscaling"
+![GrayScaled Image][image2]
 This meant altering the supplied drive.py to grayscale the input data from the simulator so that it would match the model's inputs. I did look at using a Keras ImageDataGenerator to build the grayscale operation into the model itself, and will investigate further outside the scope of this writeup.
-Grayscaling the data significantly improved the model performance; reducing the error further and ensuring that it could reliably steer a car around track one. The video, run1.mp4 illustrates the saved model.h5 doing this.
+Grayscaling the data significantly improved the model performance; reducing the error further and ensuring that it could reliably steer a car around track one. It also reduced the effect of altering my left / right correction factor, thus implying that it increased robustness. 
+The video, "run1.mp4" illustrates the saved model.h5 driving around track one..
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 9 as evidenced by plotting the mean squared error losses during training and validation. Beyond 9 epochs the training loss flattened out. I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 9 as evidenced by plotting the mean squared error losses during training and validation. Beyond 9 epochs the training loss flattened out. 
+![Losses][image11]
+
+I used an adam optimizer so that manually training the learning rate wasn't necessary.
