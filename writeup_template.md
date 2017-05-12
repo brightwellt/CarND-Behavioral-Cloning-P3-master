@@ -24,7 +24,10 @@ The goals / steps of this project are the following:
 [image4]: ./examples/recovery2.jpg "Recovery Image"
 [image5]: ./examples/recovery3.jpg "Recovery Image"
 [image6]: ./examples/NotFlipped.jpg "Normal Image"
-[image7]: ./examples/Flipped.png "Flipped Image"
+[image7]: ./examples/Flipped.jpg "Flipped Image"
+[image8]: ./examples/Left.jpg "Left Image"
+[image9]: ./examples/Center.jpg "Center Image"
+[image10]: ./examples/Right.jpg "Right Image"
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -51,6 +54,7 @@ python drive.py model.h5
 ####3. Submission code is usable and readable
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
+The model code was developed in a jupyter notebook running on an AWS instance. The notebook is attached.
 
 ###Model Architecture and Training Strategy
 
@@ -59,7 +63,6 @@ The model.py file contains the code for training and saving the convolution neur
 My model is based upon an architecture published by Nvidia here
 https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/
 and referenced in the course notes.
-![NvidiaArchitecture](https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2016/08/cnn-architecture-624x890.png)
 It consists of a convolution neural network with 3x3 / 5x5 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
 
 The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). The normalized images are cropped to remove the sky. 
@@ -94,14 +97,15 @@ To combat the overfitting, I modified the model so that there were some dropout 
 
 Then I reran the model, reviewing the training / validation errors and also the number of epochs. 
 
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track, or seemed less stable. One on occasion, the car even drove around the off-road area towards the end of the track! To improve the driving behavior in these cases, I recorded additional data; driving around the track in the opposite direction, and also adding specific extra sections for the trouble-spots. Starting from a position towards the edge of the track and driving back towards the middle.
+The final step of the process was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track, or seemed less stable. One on occasion, the car even drove around the off-road area towards the end of the track! 
+
+To improve the driving behavior in these cases, I recorded additional data; driving around the track in the opposite direction, and also adding specific extra sections for the trouble-spots. Starting from a position towards the edge of the track and driving back towards the middle.
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
 ####2. Final Model Architecture
 
 The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
-Pre-processing - grayscale the image data.
 Lambda layer (normalisation of data)
 Cropping2D (remove the sky)
 Dropout (0.2)
@@ -118,34 +122,43 @@ Dense(50)
 Dense(10)
 Dense(1)
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
+Here is a visualization of the architecture without the dropout / cropping layers (note: visualizing the architecture is optional according to the project rubric)
 
-![alt text][image1]
+![NVidia][image1]
 
 ####3. Creation of the Training Set & Training Process
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
-![alt text][image2]
+![Center driving][image2]
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover itself when it started to veer off the track in Autonomous Mode. These images show what a recovery looks like starting from ... :
 
 ![On side of track][image3]
 ![Turning back in][image4]
 ![Back to middle][image5]
 
-Then I repeated this process on track two in order to get more data points.
+I then added in the left and right camera images that the simulator records. This gave me extra data representative of a car veering across the track. For each image, I corrected the steering angle; adding a correction factor to left images and subtracting this factor for right images. These images show left, right and center images:
 
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
+![Left][image8]
+![Center][image9]
+![Right][image10]
+
+During my investigations, I repeated this process on track two in order to get more data points. This also produces a more robust model, able to handle a wider variety of circumstances. However I also found that the track two data was not necessary for a successful drive around track one; especially when grayscaling the data (see below).
+
+
+To augment the data set, I also flipped images and angles thinking that this would double the amount of images... For example, here is an image that has then been flipped:
 
 ![Normal image][image6]
 ![Flipped image][image7]
 
 Etc ....
 
-After the collection process, I had X number of data points. I then preprocessed this data by ...
-
+After the collection process, I had 18,996 number of data points. I then preprocessed this data by grayscaling the data. 
+[image2]: ./examples/GrayScaling.png "Grayscaling"
+This meant altering the supplied drive.py to grayscale the input data from the simulator so that it would match the model's inputs. I did look at using a Keras ImageDataGenerator to build the grayscale operation into the model itself, and will investigate further outside the scope of this writeup.
+Grayscaling the data significantly improved the model performance; reducing the error further and ensuring that it could reliably steer a car around track one. The video, run1.mp4 illustrates the saved model.h5 doing this.
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 9 as evidenced by plotting the mean squared error losses during training and validation. Beyond 9 epochs the training loss flattened out. I used an adam optimizer so that manually training the learning rate wasn't necessary.
