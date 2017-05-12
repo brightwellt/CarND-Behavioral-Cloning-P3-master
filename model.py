@@ -10,7 +10,7 @@ with open('./data1_r/driving_log.csv') as csvfile:
         
 images = []
 measurements = []
-correction_factor = 0.6 #For correcting Left and Right steering
+correction_factor = 0.35 #For correcting Left and Right steering
 
 for line in lines:    
     for i in range(3):
